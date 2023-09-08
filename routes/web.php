@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\ModuleController;
 use App\Http\Controllers\loginController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,9 @@ Route::prefix('/admin')->group(function(){
     Route::get('/dashboard', function () {
         return view('admin.layout.inc.home');
     })->name('home');
+
+
+    //Resource Define here
+    Route::resource('/module',ModuleController::class);
 
 });
