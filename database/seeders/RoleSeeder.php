@@ -28,6 +28,7 @@ class RoleSeeder extends Seeder
         ])->permissions()->sync($adminPermission->pluck('id'));
 
 
+        $userPermission = Permission::whereIn('id',[6,7])->select('id')->get();
         //user role
         Role::updateOrCreate([
 
@@ -36,6 +37,6 @@ class RoleSeeder extends Seeder
             'role_note' => 'allow limited permission for user',
             'is_deletable' => true
 
-        ]);
+        ])->permissions()->sync($userPermission);
     }
 }
