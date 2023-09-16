@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Backend\ModuleController;
+use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\loginController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/view',function(){
 
+    return view('welcome');
+
+});
 
 Route::get('/',[loginController::class,'login'])->name('login.page');
 
@@ -32,5 +38,8 @@ Route::prefix('/admin')->group(function(){
 
     //Resource Define here
     Route::resource('/module',ModuleController::class);
+    Route::resource('/permission',PermissionController::class);
+    Route::resource('/role',RoleController::class);
+
 
 });

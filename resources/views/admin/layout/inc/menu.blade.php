@@ -69,7 +69,7 @@
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">System Setting</div>
+                <div data-i18n="Layouts">Module Setting</div>
             </a>
 
             <ul class="menu-sub">
@@ -81,6 +81,49 @@
                 <li class="menu-item">
                     <a href="{{ route('module.create') }}" class="menu-link">
                         <div data-i18n="Without navbar">Module Create</div>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                <div data-i18n="Layouts">Permission Setting</div>
+            </a>
+
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{ route('permission.index') }}" class="menu-link">
+                        <div data-i18n="Without menu">Permission List</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('permission.create') }}" class="menu-link">
+                        <div data-i18n="Without navbar">Permission Create</div>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+
+
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Layouts">Role Setting</div>
+            </a>
+
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{{ route('role.index') }}" class="menu-link">
+                        <div data-i18n="Without menu">Role List</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('role.create') }}" class="menu-link">
+                        <div data-i18n="Without navbar">Role Create</div>
                     </a>
                 </li>
 
