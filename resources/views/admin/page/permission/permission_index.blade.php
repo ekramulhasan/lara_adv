@@ -39,7 +39,7 @@
 
             <tr>
                 <td><strong>{{ $value->id }}</strong></td>
-                <td>{{ $value->module->module_name }}</td>
+                <td>{{ $value->module->module_name ?? 'none'}}</td>
                 <td>{{ $value->permission_name }}</td>
                 <td>{{ $value->permission_slug }}</td>
                 <td><span class="badge bg-label-primary me-1">{{ $value->updated_at->format('d-m-Y') }}</span></td>

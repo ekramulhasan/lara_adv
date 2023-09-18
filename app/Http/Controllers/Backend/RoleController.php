@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Eloquent\Model;
 
 class RoleController extends Controller
@@ -17,6 +18,7 @@ class RoleController extends Controller
      */
     public function index()
     {
+        Gate::authorize('index-role');
         $role_data = Role::with('permissions:id,module_id,permission_slug')->select(['id','role_name','updated_at'])->get();
 
         return view('admin.page.role.role_index',compact('role_data'));
@@ -43,8 +45,8 @@ class RoleController extends Controller
 
             'role_name' => 'required|string',
             'role_note' => 'nullable|string|max:255',
-            'items' => 'required|array',
-            'items.*' => 'numeric'
+            'items'     => 'required|array',
+            'items.*'   => 'numeric'
         ]);
 
 
@@ -75,7 +77,7 @@ class RoleController extends Controller
     public function edit(string $id)
     {
 
-        $role_data = Role::with('permissions')->find($id);
+        $role_data   = Role::with('permissions')->find($id);
         $module_data = Module::with('permissions:id,module_id,permission_name')->select('id','module_name')->get();
 
         return view('admin.page.role.role_edit',compact('role_data','module_data'));

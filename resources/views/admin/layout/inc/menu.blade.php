@@ -108,12 +108,15 @@
             </ul>
         </li>
 
+        @can('index-role')
+
 
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Layouts">Role Setting</div>
             </a>
+
 
             <ul class="menu-sub">
                 <li class="menu-item">
@@ -129,6 +132,9 @@
 
             </ul>
         </li>
+
+        @endcan
+
 
     </ul>
 </aside>

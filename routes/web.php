@@ -3,6 +3,7 @@
 use App\Http\Controllers\Backend\ModuleController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\loginController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,9 +32,11 @@ Route::prefix('/admin')->group(function(){
     Route::post('index', [loginController::class,'index'])->name('index.page');
     Route::get('logout',[loginController::class,'logout'])->name('logout');
 
-    Route::get('/dashboard', function () {
-        return view('admin.layout.inc.home');
-    })->name('home');
+    // Route::get('/dashboard', function () {
+    //     return view('admin.layout.inc.home');
+    // })->name('home');
+
+    Route::get('/home',[HomeController::class,'index'])->name('home');
 
 
     //Resource Define here
