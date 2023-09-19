@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Gate;
 
 class PermissionController extends Controller
 {
@@ -16,6 +17,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        Gate::authorize('index-permission');
         $permission_data = Permission::with('module:id,module_name,module_slug')->select(['id','module_id','permission_name','permission_slug','updated_at'])->latest()->paginate();
         // return $permission_data;
         return view('admin.page.permission.permission_index',compact('permission_data'));
@@ -26,6 +28,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create-permission');
         $module_data = Module::select('id','module_name')->get();
         return view('admin.page.permission.permission_create',compact('module_data'));
     }
@@ -68,6 +71,7 @@ class PermissionController extends Controller
      */
     public function edit(string $id)
     {
+        Gate::authorize('edit-permission');
         $permission_name = Permission::select('id','module_id','permission_name')->find($id);
         $module_data = Module::select('id','module_name')->get();
         // return $permission_name;
@@ -79,6 +83,8 @@ class PermissionController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
+        Gate::authorize('edit-permission');
 
         $permission = Permission::find($id);
 
@@ -104,6 +110,8 @@ class PermissionController extends Controller
      */
     public function destroy(string $id)
     {
+
+        Gate::authorize('delete-permission');
         Permission::find($id)->delete();
 
         Toastr::success('successfully deleted!');

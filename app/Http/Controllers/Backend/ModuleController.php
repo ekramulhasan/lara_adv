@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 
 class ModuleController extends Controller
 {
@@ -17,6 +18,7 @@ class ModuleController extends Controller
      */
     public function index()
     {
+        Gate::authorize('index-module');
         $module_data = Module::select(['id','module_name','module_slug','updated_at'])->latest()->get();
         // $module_data =  DB::table('modules')->select(['id','module_name','module_slug','updated_at'])->get();
         return view('admin.page.module.module_index',compact('module_data'));
@@ -27,6 +29,7 @@ class ModuleController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create-module');
         return view('admin.page.module.module_create');
     }
 
@@ -35,6 +38,7 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'module_name' => 'required|string|max:255'
         ]);
@@ -70,6 +74,7 @@ class ModuleController extends Controller
      */
     public function edit(string $id)
     {
+        Gate::authorize('edit-module');
         $module_name = Module::select('id','module_name')->find($id);
         return view('admin.page.module.module_edit',compact('module_name'));
 
@@ -80,6 +85,7 @@ class ModuleController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        Gate::authorize('edit-module');
         $request->validate([
             'module_name' => 'required|string|max:255'
         ]);
@@ -104,6 +110,7 @@ class ModuleController extends Controller
      */
     public function destroy(string $id)
     {
+        Gate::authorize('delete-module');
         // return $id;
         $module_data = Module::find($id);
         $module_data->delete();

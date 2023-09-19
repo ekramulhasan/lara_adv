@@ -31,6 +31,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create-role');
         $module_data = Module::with('permissions:id,module_id,permission_name')->select('id','module_name')->get();
         return view('admin.page.role.role_create',compact('module_data'));
     }
@@ -76,7 +77,7 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-
+        Gate::authorize('edit-role');
         $role_data   = Role::with('permissions')->find($id);
         $module_data = Module::with('permissions:id,module_id,permission_name')->select('id','module_name')->get();
 
@@ -90,6 +91,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        Gate::authorize('edit-role');
 
         $role_update = Role::find($id);
 
@@ -113,6 +115,8 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
+
+        Gate::authorize('delete-role');
        $role_delete = Role::find($id);
 
        if ($role_delete->is_deletable) {
@@ -133,4 +137,14 @@ class RoleController extends Controller
 
 
     }
+
+
+    // public function restoreData($id){
+
+    //     $restore_data = Role::withTrashed()->find($id);
+    //     $restore_data->restore();
+
+    //     Toastr::success('successfully restore role');
+
+    // }
 }

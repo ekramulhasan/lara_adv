@@ -64,15 +64,19 @@
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu" style="">
+
                       <a class="dropdown-item" href="{{ route('role.edit',$value->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
 
-                      <form action="{{ route('role.destroy',$value->id) }}" method="post">
-                        @csrf
-                        @method('DELETE')
 
-                        <button type="submit" class="dropdown-item show_confirm" ><i class="bx bx-trash me-1"></i> Delete</button>
 
-                      </form>
+
+                        <form action="{{ route('role.destroy',$value->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="dropdown-item show_confirm" ><i class="bx bx-trash me-1"></i> Delete</button>
+
+                        </form>
 
                     </div>
                   </div>

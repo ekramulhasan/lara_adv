@@ -25,7 +25,7 @@ class AuthGateMiddleware
 
             $permissions = Permission::all();
 
-            foreach ($permissions as $key => $value) {
+            foreach ($permissions as $value) {
 
                 Gate::define($value->permission_slug, function(User $user) use($value){
 
