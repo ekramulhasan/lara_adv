@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title') role @endsection
+@section('title') user @endsection
 @push('admin_style')
 
 
@@ -16,8 +16,8 @@
 
     <div class="d-flex justify-content-between align-items-center my-2">
 
-        <h5 class="card-header">Role Index / Role List</h5>
-        <a href="{{ route('role.create') }}" class="btn btn-primary me-4">Add New</a>
+        <h5 class="card-header">User Index / User List</h5>
+        <a href="{{ route('user.create') }}" class="btn btn-primary me-4">Add New</a>
 
     </div>
 
@@ -26,38 +26,34 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Role Name</th>
-            <th>Permission Slug</th>
-            <th>Last Update</th>
+            <th>Role ID</th>
+            <th>User Name</th>
+            <th>User Email</th>
+            <th>Created Date</th>
+            <th>Active/Inactive</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-border-bottom-0">
 
-            @forelse ($role_data as $value)
+            @forelse ($user_data as $value)
 
             <tr>
                 <td><strong>{{ $value->id }}</strong></td>
-                <td>{{ $value->role_name }}</td>
+                <td>{{ $value->role_id }}</td>
+                <td>{{ $value->name }}</td>
+                <td>{{ $value->email }}</td>
+                <td><span class="badge bg-label-primary me-1">{{ $value->created_at->format('d-m-Y') }}</span></td>
                 <td>
 
-                    @foreach ( $value->permissions->chunk(5) as $key => $chunk_data)
+                    <div class="form-check form-switch">
 
-                      <div class="">
+                        <input class="form-check-input toggle-class" type="checkbox" role="switch" data-id="{{ $value->id }}" id="user-{{ $value->id }}" {{ $value->is_active ? 'checked':'' }}>
 
-                        @foreach ($chunk_data as $permission )
-                        <span class="badge bg-success">{{ $permission->permission_slug }}</span>
-                        @endforeach
+                    </div>
 
-
-
-                      </div>
-
-
-                    @endforeach
 
                 </td>
-                <td><span class="badge bg-label-primary me-1">{{ $value->updated_at->format('d-m-Y') }}</span></td>
                 <td>
                   <div class="dropdown">
                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
@@ -65,12 +61,12 @@
                     </button>
                     <div class="dropdown-menu" style="">
 
-                      <a class="dropdown-item" href="{{ route('role.edit',$value->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                      <a class="dropdown-item" href="{{ route('user.edit',$value->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
 
 
 
 
-                        <form action="{{ route('role.destroy',$value->id) }}" method="post">
+                        <form action="{{ route('user.destroy',$value->id) }}" method="post">
                             @csrf
                             @method('DELETE')
 
@@ -92,6 +88,10 @@
         </tbody>
       </table>
 
+      <div class="my-2 p-3">
+        {{ $user_data->links() }}
+      </div>
+
     </div>
   </div>
 
@@ -99,10 +99,6 @@
 
     </div>
 </div>
-
-
-
-
 
 
 @endsection
@@ -139,8 +135,37 @@
             }
             })
 
-
         })
+
+
+        $('.toggle-class').change(function () {
+
+            var is_active = $(this).prop('checked') == true ? 1 : 0;
+            var item_id = $(this).data('id');
+
+            // console.log(is_active, item_id);
+
+            $.ajax({
+
+                type: "GET",
+                url: "/admin/user_isactive/"+item_id,
+                dataType: "json",
+                success: function (response) {
+
+                    console.log(response);
+                    Swal.fire(
+                        response.message,
+                        response.type
+                    )
+
+                },
+                error: function (err) {
+
+                    console.log(err);
+                }
+            });
+
+        });
 
     })
 

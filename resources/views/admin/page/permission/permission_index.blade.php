@@ -76,7 +76,8 @@
 
       <div class="my-2 p-3">
 
-        {{ $permission_data->links() }}
+            {{ $permission_data->links() }}
+
       </div>
 
     </div>
