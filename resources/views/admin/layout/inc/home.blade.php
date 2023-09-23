@@ -1,6 +1,9 @@
 @extends('admin.layout.master')
 @section('title') dashboard @endsection
 
+@push('admin_style')
+
+@endpush
 
 @section('index')
 
@@ -8,3 +11,7 @@
 
 @endsection
 
+
+@push('admin_script')
+
+@endpush

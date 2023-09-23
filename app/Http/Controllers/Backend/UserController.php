@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -17,6 +18,7 @@ class UserController extends Controller
     public function index()
     {
 
+        Gate::authorize('index-user');
         $user_data = User::with('userRole:id,role_name,role_slug')->select('id','role_id','name','email','is_active','created_at')->latest()->paginate(10);
         // return $user_data;
         return view('admin.page.user.user_index',compact('user_data'));
@@ -28,6 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create-user');
         $role_data = Role::select('id','role_name','role_slug')->get();
         return view('admin.page.user.user_create',compact('role_data'));
     }
@@ -38,6 +41,7 @@ class UserController extends Controller
     public function store(Request $request)
 
     {
+        Gate::authorize('create-user');
 
         $request->validate([
 
@@ -75,6 +79,7 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
+        Gate::authorize('edit-user');
         $user_update = User::find($id);
         $role_data = Role::select('id','role_name','role_slug')->get();
         // return $user_update;
@@ -86,6 +91,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        Gate::authorize('edit-user');
 
         $edit_user = User::find($id);
 
@@ -118,6 +124,8 @@ class UserController extends Controller
     public function destroy(string $id)
     {
 
+        Gate::authorize('delete-user');
+
         $user = User::find($id);
         $user->delete();
 
@@ -128,6 +136,8 @@ class UserController extends Controller
 
 
     public function userActive($userId){
+
+        Gate::authorize('user-isactive');
 
         $user = User::find($userId);
 

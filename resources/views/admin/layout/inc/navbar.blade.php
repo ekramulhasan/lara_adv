@@ -32,8 +32,10 @@ id="layout-navbar">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                 data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
+
                     <img src="{{ asset('admin/assets') }}/img/avatars/1.png" alt
                         class="w-px-40 h-auto rounded-circle" />
+                        
                 </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -57,7 +59,7 @@ id="layout-navbar">
                     <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{ route('update.profile') }}">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">My Profile</span>
                     </a>

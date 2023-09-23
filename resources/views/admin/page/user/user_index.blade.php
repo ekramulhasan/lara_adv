@@ -162,6 +162,11 @@
                 error: function (err) {
 
                     console.log(err);
+                    Swal.fire(
+
+                        'not permission 404 error'
+
+                    )
                 }
             });
 

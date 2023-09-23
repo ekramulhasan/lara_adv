@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\ModuleController;
 use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\HomeController;
@@ -46,6 +47,10 @@ Route::prefix('/admin')->group(function(){
     Route::resource('/role',RoleController::class);
     Route::resource('/user',UserController::class);
     Route::get('/user_isactive/{user_id}',[UserController::class,'userActive'])->name('user.isactive');
+
+    // Profile Management
+    Route::get('/edit-profile',[ProfileController::class,'getProfileUpdate'])->name('update.profile');
+    Route::post('/update-profile',[ProfileController::class,'updateProfile'])->name('post.update.profile');
 
 
 });

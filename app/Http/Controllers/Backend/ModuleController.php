@@ -38,7 +38,7 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
-
+        Gate::authorize('create-module');
         $request->validate([
             'module_name' => 'required|string|max:255'
         ]);

@@ -38,6 +38,8 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('create-permission');
+
         $request->validate([
 
             'module_id'       => 'required|numeric',
