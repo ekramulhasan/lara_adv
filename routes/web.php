@@ -53,6 +53,11 @@ Route::prefix('/admin')->group(function(){
     Route::post('/update-profile',[ProfileController::class,'updateProfile'])->name('post.update.profile');
 
 
+    //password update
+    Route::get('/edit-password',[ProfileController::class,'getPasswordUpdate'])->name('update.password');
+    Route::post('/update-password',[ProfileController::class,'updatePassword'])->name('post.update.password');
+
+
 });
 
 

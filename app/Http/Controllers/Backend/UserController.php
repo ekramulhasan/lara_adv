@@ -19,7 +19,7 @@ class UserController extends Controller
     {
 
         Gate::authorize('index-user');
-        $user_data = User::with('userRole:id,role_name,role_slug')->select('id','role_id','name','email','is_active','created_at')->latest()->paginate(10);
+        $user_data = User::with('userRole:id,role_name,role_slug')->select('id','role_id','name','email','is_active','user_img','created_at')->latest()->paginate(10);
         // return $user_data;
         return view('admin.page.user.user_index',compact('user_data'));
 
@@ -107,8 +107,8 @@ class UserController extends Controller
         $edit_user->update([
 
             'role_id' => $request->role_id,
-            'name' => $request->user_name,
-            'email' => $request->user_email,
+            'name'    => $request->user_name,
+            'email'   => $request->user_email,
 
         ]);
 
@@ -125,8 +125,14 @@ class UserController extends Controller
     {
 
         Gate::authorize('delete-user');
-
         $user = User::find($id);
+        if ($user->user_img != null) {
+
+            $img_location = 'public/uploads/profile_img/';
+            $old_img_loaction = $img_location.$user->user_img; //public/uploads/profile_img/1.jpg
+            unlink(base_path($old_img_loaction));
+
+        }
         $user->delete();
 
         Toastr::success('successfully delete user');

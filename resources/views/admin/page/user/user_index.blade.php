@@ -29,6 +29,7 @@
             <th>Role ID</th>
             <th>User Name</th>
             <th>User Email</th>
+            <th>User Image</th>
             <th>Created Date</th>
             <th>Active/Inactive</th>
             <th>Actions</th>
@@ -43,6 +44,19 @@
                 <td>{{ $value->role_id }}</td>
                 <td>{{ $value->name }}</td>
                 <td>{{ $value->email }}</td>
+                <td>
+
+                    @if ($value->user_img)
+
+                        <img src="{{ asset('uploads/profile_img') }}/{{ $value->user_img }}" alt
+                        class="w-px-40 h-auto rounded-circle" />
+
+                    @else
+                        <img src="{{ asset('admin/assets') }}/img/avatars/1.png" alt
+                        class="w-px-40 h-auto rounded-circle" />
+                    @endif
+
+                </td>
                 <td><span class="badge bg-label-primary me-1">{{ $value->created_at->format('d-m-Y') }}</span></td>
                 <td>
 
