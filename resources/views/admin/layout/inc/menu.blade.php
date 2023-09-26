@@ -138,7 +138,7 @@
         @endcan
 
 
-        @can('index-role')
+    @can('index-role')
 
 
         <li class="menu-item">
@@ -163,7 +163,34 @@
             </ul>
         </li>
 
-        @endcan
+    @endcan
+
+
+    @can('index-page')
+
+    <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-book-content"></i>
+            <div data-i18n="Layouts">Page Builder</div>
+        </a>
+
+
+        <ul class="menu-sub">
+            <li class="menu-item">
+                <a href="{{ route('page.index') }}" class="menu-link">
+                    <div data-i18n="Without menu">Page List</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('page.create') }}" class="menu-link">
+                    <div data-i18n="Without navbar">Page Create</div>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+
+@endcan
 
 
     </ul>

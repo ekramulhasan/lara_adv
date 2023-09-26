@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\Backend\ModuleController;
-use App\Http\Controllers\Backend\PermissionController;
-use App\Http\Controllers\Backend\ProfileController;
-use App\Http\Controllers\Backend\RoleController;
-use App\Http\Controllers\Backend\UserController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\loginController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\PageController;
+use App\Http\Controllers\Backend\RoleController;
+use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\ModuleController;
+use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Frontend\FrontendContorller;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('{page_slug}',[FrontendContorller::class,'index']);
 
 Route::get('/view',function(){
 
@@ -47,6 +51,10 @@ Route::prefix('/admin')->group(function(){
     Route::resource('/role',RoleController::class);
     Route::resource('/user',UserController::class);
     Route::get('/user_isactive/{user_id}',[UserController::class,'userActive'])->name('user.isactive');
+
+    //page management
+    Route::resource('/page',PageController::class);
+    Route::get('/page_isactive/{page_id}',[PageController::class,'pageActive'])->name('page.isactive');
 
     // Profile Management
     Route::get('/edit-profile',[ProfileController::class,'getProfileUpdate'])->name('update.profile');
