@@ -193,5 +193,33 @@
 @endcan
 
 
+@can('index-backup')
+
+<li class="menu-item">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-book-content"></i>
+        <div data-i18n="Layouts">Backup</div>
+    </a>
+
+
+    <ul class="menu-sub">
+        <li class="menu-item">
+            <a href="{{ route('backup.index') }}" class="menu-link">
+                <div data-i18n="Without menu">Backup List</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="{{ route('backup.store') }}" class="menu-link">
+                <div data-i18n="Without navbar">Backup Store</div>
+            </a>
+        </li>
+
+    </ul>
+</li>
+
+@endcan
+
+
+
     </ul>
 </aside>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\BackupController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\loginController;
@@ -22,7 +23,7 @@ use App\Http\Controllers\Frontend\FrontendContorller;
 |
 */
 
-Route::get('{page_slug}',[FrontendContorller::class,'index']);
+Route::get('page/{page_slug}',[FrontendContorller::class,'index']);
 
 Route::get('/view',function(){
 
@@ -46,6 +47,7 @@ Route::prefix('/admin')->group(function(){
 
 
     //Resource Define here
+    Route::resource('/backup', BackupController::class)->only('index','store','destroy');
     Route::resource('/module',ModuleController::class);
     Route::resource('/permission',PermissionController::class);
     Route::resource('/role',RoleController::class);
