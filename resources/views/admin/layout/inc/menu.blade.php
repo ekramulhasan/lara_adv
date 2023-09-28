@@ -197,7 +197,7 @@
 
 <li class="menu-item">
     <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-book-content"></i>
+        <i class="menu-icon tf-icons bx bx-data"></i>
         <div data-i18n="Layouts">Backup</div>
     </a>
 
