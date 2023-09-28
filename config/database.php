@@ -61,6 +61,7 @@ return [
             'dump' => [
 
                 'dump_binary_path' => 'C:\xampp\mysql\bin', //only the path where xampp installed or mqldump
+                //'dump_binary_path' => yourdomain/project_name/publicFolder
                 'use_single_transaction',
                 'timeout' => 60*5,
             ],

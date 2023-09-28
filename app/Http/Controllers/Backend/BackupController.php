@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 
 class BackupController extends Controller
@@ -27,6 +30,7 @@ class BackupController extends Controller
 
                 $file_name = str_replace(config('backup.backup.name').'/','',$file);
                 $backup[] =[
+
 
                     'file_path'     => $file,
                     'file_name'     => $file_name,
@@ -73,7 +77,10 @@ class BackupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Gate::authorize('create-backup');
+        Artisan::call('backup:run');
+        dd(Artisan::output());
+        return back();
     }
 
     /**
@@ -103,8 +110,49 @@ class BackupController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($file_name)
     {
-        //
+
+        // dd($file_name);
+        Gate::authorize('delete-backup');
+        $disk = Storage::disk(config('backup.backup.destination.disks')[0]); //loacl
+        $files = $disk->files(config('backup.backup.name')); //project name
+
+        if ($disk->exists(config('backup.backup.name').'/'.$file_name)) {
+
+            $disk->delete(config('backup.backup.name').'/'.$file_name);
+            Toastr::success('Backup successfully deleted!!!');
+            return back();
+        }
+
+    }
+
+
+    public function download($file_name){
+
+        Gate::authorize('download-backup');
+        $file = config('backup.backup.name').'/'.$file_name;
+        $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
+
+        if ($disk->exists($file)) {
+
+            $fs = Storage::disk(config('backup.backup.destination.disks')[0])->getDriver();
+            $stream = $fs->readStream($file);
+
+            return Response::stream(function() use($stream){
+
+                fpassthru($stream);
+
+            },200,[
+
+                'content-type' => '.zip',
+                'content-length' => Storage::size($file),
+                'content-disposition' => "attachment; filename=\"".basename($file)."\"",
+
+            ] );
+
+        }
+
+
     }
 }

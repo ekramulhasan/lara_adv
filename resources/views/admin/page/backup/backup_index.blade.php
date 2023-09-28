@@ -19,6 +19,12 @@
         <h5 class="card-header">Backup Index / Backup List</h5>
         {{-- <a href="{{ route('backup.create') }}" class="btn btn-primary me-4">Add New</a> --}}
 
+        <button type="button" class="btn btn-primary me-4" onclick="event.preventDefault(); document.getElementById('data_store').submit();">Create Backup</button>
+        <form action="{{ route('backup.store') }}" method="post" class="d-none" id="data_store">
+            @csrf
+
+        </form>
+
     </div>
 
     <div class="table-responsive text-nowrap">
@@ -42,19 +48,19 @@
                 <td>{{ $value['file_size'] }}</td>
                 <td>{{ $value['create_at'] }}</td>
 
-                {{-- <td>
+            <td>
                   <div class="dropdown">
                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class="bx bx-dots-vertical-rounded"></i>
                     </button>
                     <div class="dropdown-menu" style="">
 
-                      <a class="dropdown-item" href="{{ route('backup.edit',$value->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                      <a class="dropdown-item" href="{{ route('backup.download',$value['file_name']) }}"><i class="bx bx-download me-1"></i> Download</a>
 
 
 
 
-                        <form action="{{ route('backup.destroy',$value->id) }}" method="post">
+                        <form action="{{ route('backup.destroy',$value['file_name']) }}" method="post">
                             @csrf
                             @method('DELETE')
 
@@ -64,7 +70,7 @@
 
                     </div>
                   </div>
-                </td> --}}
+                </td>
               </tr>
 
             @empty

@@ -48,6 +48,7 @@ Route::prefix('/admin')->group(function(){
 
     //Resource Define here
     Route::resource('/backup', BackupController::class)->only('index','store','destroy');
+    Route::get('backup/download/{file_name}',[BackupController::class,'download'])->name('backup.download');
     Route::resource('/module',ModuleController::class);
     Route::resource('/permission',PermissionController::class);
     Route::resource('/role',RoleController::class);
