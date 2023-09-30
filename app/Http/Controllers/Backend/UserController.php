@@ -138,6 +138,7 @@ class UserController extends Controller
         Toastr::success('successfully delete user');
         return redirect()->route('user.index');
 
+
     }
 
 

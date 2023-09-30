@@ -88,7 +88,6 @@ Route::prefix('/admin')->group(function(){
         Route::get('mail',[SettingController::class,'mail'])->name('mail');
         Route::post('mail_update',[SettingController::class,'mail_update'])->name('mail.update');
 
-
     });
 });
 

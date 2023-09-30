@@ -267,5 +267,8 @@ class SettingController extends Controller
 
         Toastr::success('successfully upload your data');
         return back();
+
+
+
     }
 }
