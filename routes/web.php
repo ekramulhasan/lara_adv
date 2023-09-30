@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ModuleController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\FrontendContorller;
 
 /*
@@ -33,6 +34,9 @@ Route::get('/view',function(){
 
 Route::get('/',[loginController::class,'login'])->name('login.page');
 
+
+
+//for admin
 Route::prefix('/admin')->group(function(){
 
 
@@ -69,6 +73,23 @@ Route::prefix('/admin')->group(function(){
     Route::post('/update-password',[ProfileController::class,'updatePassword'])->name('post.update.password');
 
 
+    //Setting Management
+    Route::group(['as'=>'settings.', 'prefix'=>'settings'],function(){
+
+        //general setting
+        Route::get('general',[SettingController::class,'general'])->name('general');
+        Route::post('general_update',[SettingController::class,'general_update'])->name('general.update');
+
+        //apperance setting
+        Route::get('apperance',[SettingController::class,'apperance'])->name('apperance');
+        Route::post('apperance_update',[SettingController::class,'apperance_update'])->name('apperance.update');
+
+        //mail setting
+        Route::get('mail',[SettingController::class,'mail'])->name('mail');
+        Route::post('mail_update',[SettingController::class,'mail_update'])->name('mail.update');
+
+
+    });
 });
 
 
