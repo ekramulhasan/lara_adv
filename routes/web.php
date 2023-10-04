@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\Backend\BackupController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\BackupController;
 use App\Http\Controllers\Backend\ModuleController;
 use App\Http\Controllers\Backend\ProfileController;
-use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\FrontendContorller;
+use App\Http\Controllers\Backend\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,18 +27,37 @@ use App\Http\Controllers\Frontend\FrontendContorller;
 
 Route::get('page/{page_slug}',[FrontendContorller::class,'index']);
 
-Route::get('/view',function(){
+// Route::get('/view',function(){
 
-    return view('welcome');
+//     return view('welcome');
+
+// });
+
+Route::get('/login',[loginController::class,'login'])->name('login.page');
+
+ //socialtie login
+ Route::group(['as' => 'login.','prefix' => 'login'],function(){
+
+    Route::get('/{provider}',[loginController::class,'redirectToProvider'])->name('provider');
+    Route::get('/{provider}/callback',[loginController::class,'providerCallback'])->name('provider.callback');
 
 });
 
-Route::get('/',[loginController::class,'login'])->name('login.page');
 
+// Route::get('/auth/redirect', function () {
+//     return Socialite::driver('github')->redirect();
+// });
 
+// Route::get('/auth/callback', function () {
+//     $user = Socialite::driver('github')->user();
+
+//     dd($user);
+// });
 
 //for admin
 Route::prefix('/admin')->group(function(){
+
+
 
 
     Route::post('index', [loginController::class,'index'])->name('index.page');
@@ -87,6 +107,10 @@ Route::prefix('/admin')->group(function(){
         //mail setting
         Route::get('mail',[SettingController::class,'mail'])->name('mail');
         Route::post('mail_update',[SettingController::class,'mail_update'])->name('mail.update');
+
+        //social login setting
+        Route::get('socialite',[SettingController::class,'socialiteView'])->name('socialite');
+        Route::post('socialite_update',[SettingController::class,'socialiteUpdate'])->name('socialite.update');
 
     });
 });

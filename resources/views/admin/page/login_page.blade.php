@@ -184,6 +184,21 @@
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                 </div>
+
+                <div class="mb-3">
+
+                    <div class="row">
+
+                        <div class="col-md-6 offset-md-4">
+                            <a href="{{ route('login.provider',['provider' => 'github']) }}" class="btn btn-primary"><i class='bx bxl-github'></i></a>
+                        </div>
+
+                        <div class="col-md-6 offset-md-4 mt-3">
+                            <a href="{{ route('login.provider',['provider' => 'google']) }}" class="btn btn-primary"><i class='bx bxl-google-plus'></i></a>
+                        </div>
+                    </div>
+                </div>
+
               </form>
 
 
@@ -192,6 +207,7 @@
                 <a href="auth-register-basic.html">
                   <span>Create an account</span>
                 </a>
+
               </p>
             </div>
           </div>

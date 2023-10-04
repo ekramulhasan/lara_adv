@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Permission;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Role extends Model
 {
@@ -15,14 +17,14 @@ class Role extends Model
     //relationship with user
     public function user(){
 
-        return $this->hasMany(User::class,'role_id','id');
+        return $this->hasMany(User::class,'id');
     }
 
 
     // relationship with permision
     public function permissions(){
 
-        return $this->belongsToMany(permission::class);
+        return $this->belongsToMany(Permission::class);
     }
 
 

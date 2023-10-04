@@ -271,4 +271,105 @@ class SettingController extends Controller
 
 
     }
+
+    public function socialiteView(){
+
+        return view('admin.page.settings.socialite');
+
+    }
+
+    public function socialiteUpdate(Request $request){
+
+        $request->validate([
+
+            'github_client_id'        => 'required|string|max:255',
+            'github_client_secret_id' => 'required|string|max:255',
+            'github_redirect_url'     => 'required|string|max:255',
+            'google_client_id'        => 'required|string|max:255',
+            'google_client_secret_id' => 'required|string|max:255',
+            'google_redirect_url'     => 'required|string|max:255',
+
+        ]);
+
+
+        Setting::updateOrCreate(
+
+            ['name' => 'github_client_id'],
+            ['value' => $request->github_client_id]
+
+        );
+
+        Setting::updateOrCreate(
+
+            ['name' => 'github_client_secret_id'],
+            ['value' => $request->github_client_secret_id]
+
+        );
+
+        Setting::updateOrCreate(
+
+            ['name' => 'github_redirect_url'],
+            ['value' => $request->github_redirect_url]
+
+        );
+
+
+        Setting::updateOrCreate(
+
+            ['name' => 'google_client_id'],
+            ['value' => $request->google_client_id]
+
+        );
+
+        Setting::updateOrCreate(
+
+            ['name' => 'google_client_secret_id'],
+            ['value' => $request->google_client_secret_id]
+
+        );
+
+        Setting::updateOrCreate(
+
+            ['name' => 'google_redirect_url'],
+            ['value' => $request->google_redirect_url]
+
+        );
+
+
+
+        $envFilePath = base_path('.env');
+
+        // Define the new values you want to set
+        $newEnvValues = [
+
+            "GITHUB_CLIENT_ID=".$request->github_client_id,
+            "GITHUB_CLIENT_SECRET=".$request->github_client_secret_id,
+            "GITHUB_REDIRECT_URL=".$request->github_redirect_url,
+            "GOOGLE_CLIENT_ID=".$request->google_client_id,
+            "GOOGLE_CLIENT_SECRET=".$request->google_client_secret_id,
+            "GOOGLE_REDIRECT_URL=".$request->google_redirect_url,
+
+        ];
+
+        // Read the current contents of the .env file
+        $envContents = file_get_contents($envFilePath);
+
+        // Update the .env contents with the new values
+        foreach ($newEnvValues as $newEnvValue) {
+            $envContents = preg_replace('/^' . preg_quote(explode('=', $newEnvValue)[0], '/') . '=.*/m', $newEnvValue, $envContents);
+        }
+
+        // Write the updated contents back to the .env file
+        file_put_contents($envFilePath, $envContents);
+
+        // You may also want to reload the configuration cache for Laravel to reflect the changes.
+        // Artisan::call('config:cache');
+
+
+        Toastr::success('successfully upload your data');
+        return back();
+
+    }
+
+
 }

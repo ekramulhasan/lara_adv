@@ -9,7 +9,8 @@
 @section('index')
 
 <div class="row">
-    <div class="col">
+
+ <div class="col">
 
 
 <div class="card">

@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Role;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -50,14 +51,21 @@ class User extends Authenticatable
     // relationship with role
     public function userRole(){
 
-        return $this->belongsTo(Role::class,'id');
+        return $this->belongsTo(Role::class,'role_id');
     }
 
 
     //relation with permission
     public function hasPermission($permissionSlug){
 
-        return $this->userRole->permissions()->where('permission_slug',$permissionSlug)->first()?true:false;
+        // dd($permissionSlug);
+        // dd($this->userRole);
+
+        if (!$this->userRole) {
+            return false;
+        }
+
+        return $this->userRole->permissions()->where('permission_slug',$permissionSlug)->exists();
 
     }
 
