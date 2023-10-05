@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\LoginHistory;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -37,8 +38,13 @@ class loginController extends Controller
 
         if (Auth::attempt($cridentials)) {
 
+            $user = Auth::user();
             $request->session()->regenerate();
+            
+            event(new LoginHistory($user));
             return redirect()->route('home');
+
+
         }
 
         return back()->withErrors([
@@ -87,10 +93,7 @@ class loginController extends Controller
             ]);
 
             Auth::login($newUser);
-            
-
         }
-
 
         // return redirect($this->redirectPath());
         return redirect()->route('home');

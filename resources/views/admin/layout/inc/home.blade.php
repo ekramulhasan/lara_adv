@@ -1,5 +1,5 @@
 @extends('admin.layout.master')
-@section('title') dashboard @endsection
+@section('title') login activity @endsection
 
 @push('admin_style')
 
@@ -93,13 +93,10 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>Role ID</th>
+              <th>User ID</th>
               <th>User Name</th>
               <th>User Email</th>
-              <th>User Image</th>
-              <th>Created Date</th>
-              <th>Active/Inactive</th>
-              <th>Actions</th>
+              <th>Last Activity</th>
             </tr>
           </thead>
           <tbody class="table-border-bottom-0">
@@ -108,33 +105,11 @@
 
               <tr>
                   <td><strong>{{ $value->id }}</strong></td>
-                  <td>{{ $value->role_id }}</td>
+                  <td>{{ $value->user_id }}</td>
                   <td>{{ $value->name }}</td>
                   <td>{{ $value->email }}</td>
-                  <td>
+                  <td><span class="badge bg-label-primary me-1">{{ $value->created_at->format('d-m-Y') }} / {{ $value->created_at->diffForHumans() }}</span></td>
 
-                      @if ($value->user_img)
-
-                          <img src="{{ asset('uploads/profile_img') }}/{{ $value->user_img }}" alt
-                          class="w-px-40 h-auto rounded-circle" />
-
-                      @else
-                          <img src="{{ asset('admin/assets') }}/img/avatars/1.png" alt
-                          class="w-px-40 h-auto rounded-circle" />
-                      @endif
-
-                  </td>
-                  <td><span class="badge bg-label-primary me-1">{{ $value->created_at->format('d-m-Y') }}</span></td>
-                  <td>
-
-                      <div class="form-check form-switch">
-
-                          <input class="form-check-input toggle-class" type="checkbox" role="switch" data-id="{{ $value->id }}" id="user-{{ $value->id }}" {{ $value->is_active ? 'checked':'' }}>
-
-                      </div>
-
-
-                  </td>
                   <td>
                     <div class="dropdown">
                       <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">

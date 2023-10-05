@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserLoginHistore;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -17,7 +18,7 @@ class HomeController extends Controller
         $user_count = User::count();
         $role_count = Role::count();
         $page_count = Page::count();
-        $user_data = User::with(['userRole'])->latest()->paginate(10);
+        $user_data = UserLoginHistore::latest('id')->paginate(10);
 
         return view('admin.layout.inc.home',compact(
 
