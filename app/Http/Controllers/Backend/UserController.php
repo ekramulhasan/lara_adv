@@ -46,7 +46,7 @@ class UserController extends Controller
         $request->validate([
 
             'user_name' => 'required|string|max:255',
-            'user_email' => 'required|email|string|max:255',
+            'user_email' => 'required|email|string|max:255|unique:users,email',
             'user_password' => 'required|string|min:5'
 
         ]);
@@ -162,4 +162,40 @@ class UserController extends Controller
         ]);
 
     }
+
+
+    public function userCreateForm(){
+
+        return view('admin.page.register_page');
+
+    }
+
+
+    public function userSelfCreate(Request $request){
+
+        $request->validate([
+
+            'username' => 'required|string|max:255',
+            'email'    => 'required|email|string|unique:users,email',
+            'password' => 'required|string'
+
+        ]);
+
+        User::create([
+
+            'role_id' => 2,
+            'name' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+
+        ]);
+
+        Toastr::success('successfully create your account');
+        return redirect()->route('login.page');
+
+
+    }
+
+
+
 }

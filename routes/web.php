@@ -27,13 +27,13 @@ use App\Http\Controllers\Backend\PermissionController;
 
 Route::get('page/{page_slug}',[FrontendContorller::class,'index']);
 
-// Route::get('/view',function(){
+//user create
+Route::get('/userform',[UserController::class,'userCreateForm'])->name('user.form');
+Route::post('/usercreate',[UserController::class,'userSelfCreate'])->name('userself.create');
 
-//     return view('welcome');
 
-// });
 
-Route::get('/login',[loginController::class,'login'])->name('login.page');
+Route::get('/',[loginController::class,'login'])->name('login.page');
 
  //socialtie login
  Route::group(['as' => 'login.','prefix' => 'login'],function(){

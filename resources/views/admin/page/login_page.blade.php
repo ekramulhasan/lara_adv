@@ -18,7 +18,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Login</title>
 
     <meta name="description" content="" />
 
@@ -43,6 +43,7 @@
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('admin') }}/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
     <!-- Page CSS -->
     <!-- Page -->
@@ -122,11 +123,11 @@
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
+                  <span class="app-brand-text fs-3 text-body fw-bolder">ITman</span>
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Welcome to Sneat! 👋</h4>
+              <h4 class="mb-2">Welcome to ITman! 👋</h4>
               <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
 
@@ -188,14 +189,16 @@
                 <div class="mb-3">
 
                     <div class="row">
-
-                        <div class="col-md-6 offset-md-4">
+                        <label class="form-check-label text-center mb-2" for="social-media"> Login with social media </label>
+                        <div class="col-5 m-auto">
                             <a href="{{ route('login.provider',['provider' => 'github']) }}" class="btn btn-primary"><i class='bx bxl-github'></i></a>
-                        </div>
-
-                        <div class="col-md-6 offset-md-4 mt-3">
                             <a href="{{ route('login.provider',['provider' => 'google']) }}" class="btn btn-primary"><i class='bx bxl-google-plus'></i></a>
                         </div>
+
+                        {{-- <div class="col-md-2 mb-3">
+                            <a href="{{ route('login.provider',['provider' => 'google']) }}" class="btn btn-primary"><i class='bx bxl-google-plus'></i></a>
+                        </div> --}}
+
                     </div>
                 </div>
 
@@ -204,7 +207,7 @@
 
               <p class="text-center">
                 <span>New on our platform?</span>
-                <a href="auth-register-basic.html">
+                <a href="{{ route('user.form') }}">
                   <span>Create an account</span>
                 </a>
 
@@ -230,10 +233,11 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
 
     <!-- Main JS -->
     <script src="{{ asset('admin') }}/assets/js/main.js"></script>
-
     <!-- Page JS -->
 
     <!-- Place this tag in your head or just before your close body tag. -->

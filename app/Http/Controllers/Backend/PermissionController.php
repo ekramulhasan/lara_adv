@@ -103,7 +103,7 @@ class PermissionController extends Controller
 
         ]);
 
-        Toastr::success('successfully added permission');
+        Toastr::success('successfully update permission');
         return redirect()->route('permission.index');
     }
 
